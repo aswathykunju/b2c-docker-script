@@ -1,0 +1,21 @@
+web:
+    build:
+      context: .
+    ports:
+    - "8080:8080"
+    volumes:
+    - ./app/properties/application.properties:/usr/app/att-root-b2c/config/application.prod.properties
+    links:
+    - postgres
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: b2c_database
+      POSTGRES_USER: b2cuser
+      POSTGRES_PASSWORD: post1234
+    volumes:
+        - ./postgres/data:/var/lib/postgresql/data
+        - ./postgres/scripts/metadata.sql:/docker-entrypoint-initdb.d/metadata.sql
+        - ./postgres/scripts/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+        - ./postgres/scripts/testdata.sql:/docker-entrypoint-initdb.d/testdata.sql
