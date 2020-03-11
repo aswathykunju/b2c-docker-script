@@ -7,6 +7,6 @@ RUN gradle build
 RUN mv build/libs/*.jar /usr/app/b2c.jar
 WORKDIR /usr/app
 EXPOSE 8080
-#ENTRYPOINT ["java", "-jar", "b2c.jar"]
+ENTRYPOINT ["java", "-jar", "b2c.jar"]
 
 CMD ["nginx", "-g", "daemon off;"]
